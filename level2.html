@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Level 2</title>
+
+<style>
+body{
+  background:black;
+  color:lime;
+  font-family:monospace;
+  text-align:center;
+  padding-top:60px;
+}
+
+#msg {
+  white-space: pre-line;
+  font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>TRANSMISSION INTERCEPTED</h1>
+
+<div id="msg"></div>
+
+<script>
+const lines = [
+"Connecting to encrypted signal...",
+"Signal acquired.",
+"Decoding base64 payload...",
+
+"R29vZC4gVGhlIG1lc3NhZ2UgaXMgaW5jb21wbGV0ZS4KU2Vjb25kYXJ5IGVuY3J5cHRpb24gZGV0ZWN0ZWQuClJPVC03IHJlcXVpcmVkLg==",
+
+"Decoding complete.",
+
+"Secondary encryption detected.",
+"ROT-7 REQUIRED.",
+
+"Encrypted key detected: psveffvu"
+];
+
+let i = 0;
+let msg = document.getElementById("msg");
+
+function typeLine() {
+  if (i < lines.length) {
+    msg.innerHTML += lines[i] + "\n";
+    i++;
+    setTimeout(typeLine, 900);
+  } else {
+    setTimeout(showInput, 500);
+  }
+}
+
+function showInput() {
+  msg.innerHTML += "\nENTER DECRYPTED KEY:\n<br>";
+
+  msg.innerHTML += `
+    <input id="answer" type="text" style="padding:5px;">
+    <button onclick="check()">Submit</button>
+  `;
+}
+
+function check() {
+  let input = document.getElementById("answer").value.toLowerCase();
+
+  if (input === "iloveyou") {
+    window.location.href = "level3.html";
+  } else {
+    alert("ACCESS DENIED");
+  }
+}
+
+typeLine();
+</script>
+
+</body>
+</html>

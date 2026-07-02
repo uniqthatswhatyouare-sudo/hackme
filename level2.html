@@ -4,17 +4,24 @@
 <title>Level 2</title>
 
 <style>
-body{
-  background:black;
-  color:lime;
-  font-family:monospace;
-  text-align:center;
-  padding-top:60px;
+body {
+  background: black;
+  color: lime;
+  font-family: monospace;
+  text-align: center;
+  padding-top: 50px;
 }
 
 #msg {
   white-space: pre-line;
   font-size: 18px;
+  width: 80%;
+  margin: auto;
+}
+input, button {
+  margin-top: 10px;
+  padding: 8px;
+  font-family: monospace;
 }
 </style>
 </head>
@@ -26,43 +33,70 @@ body{
 <div id="msg"></div>
 
 <script>
-const lines = [
-"Connecting to encrypted signal...",
-"Signal acquired.",
-"Decoding base64 payload...",
-
-"R29vZC4gVGhlIG1lc3NhZ2UgaXMgaW5jb21wbGV0ZS4KU2Vjb25kYXJ5IGVuY3J5cHRpb24gZGV0ZWN0ZWQuClJPVC03IHJlcXVpcmVkLg==",
-
-"Decoding complete.",
-
-"Secondary encryption detected.",
-"ROT-7 REQUIRED.",
-
-"Encrypted key detected: psveffvu"
-];
-
-let i = 0;
 let msg = document.getElementById("msg");
 
-function typeLine() {
-  if (i < lines.length) {
-    msg.innerHTML += lines[i] + "\n";
-    i++;
-    setTimeout(typeLine, 900);
-  } else {
-    setTimeout(showInput, 500);
-  }
-}
+// STEP 1 — show base64
+msg.innerHTML = "Connecting to encrypted signal...\n";
+msg.innerHTML += "Signal acquired.\n\n";
+msg.innerHTML += "Decoding base64 payload...\n\n";
 
-function showInput() {
-  msg.innerHTML += "\nENTER DECRYPTED KEY:\n<br>";
+setTimeout(() => {
+
+  msg.innerHTML += "R29vZC4gVGhlIG1lc3NhZ2UgaXMgaW5jb21wbGV0ZS4=\n";
+
+}, 1500);
+
+// STEP 2 — decoding effect
+setTimeout(() => {
+
+  msg.innerHTML += "\nDecoding complete...\n";
+
+}, 3000);
+
+// STEP 3 — decoded message appears
+setTimeout(() => {
 
   msg.innerHTML += `
-    <input id="answer" type="text" style="padding:5px;">
-    <button onclick="check()">Submit</button>
-  `;
-}
+Good. The message is incomplete.
+`;
 
+}, 4500);
+
+// STEP 4 — secondary encryption
+setTimeout(() => {
+
+  msg.innerHTML += `
+Secondary encryption detected.
+ROT-7 REQUIRED.
+`;
+
+}, 6500);
+
+// STEP 5 — encrypted key appears
+setTimeout(() => {
+
+  msg.innerHTML += `
+Encrypted key detected: psveffvu
+`;
+
+}, 8500);
+
+// STEP 6 — input box
+setTimeout(() => {
+
+  msg.innerHTML += `
+
+ENTER DECRYPTED KEY:
+`;
+
+  msg.innerHTML += `
+<input id="answer" type="text">
+<button onclick="check()">Submit</button>
+`;
+
+}, 10500);
+
+// CHECK ANSWER
 function check() {
   let input = document.getElementById("answer").value.toLowerCase();
 
@@ -72,8 +106,6 @@ function check() {
     alert("ACCESS DENIED");
   }
 }
-
-typeLine();
 </script>
 
 </body>
